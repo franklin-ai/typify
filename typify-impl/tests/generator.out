@@ -1,5 +1,5 @@
 mod types {
-    #[derive(Clone, Debug, Deserialize, Serialize, JsonSchema)]
+    #[derive(Clone, Debug, Deserialize, JsonSchema, Serialize)]
     pub struct CompoundType {
         pub value1: String,
         pub value2: u64,
@@ -9,7 +9,7 @@ mod types {
             builder::CompoundType::default()
         }
     }
-    #[derive(Clone, Debug, Deserialize, Serialize, JsonSchema)]
+    #[derive(Clone, Debug, Deserialize, JsonSchema, Serialize)]
     pub struct Pair {
         #[serde(default = "defaults::pair_a")]
         pub a: StringEnum,
@@ -22,7 +22,7 @@ mod types {
         }
     }
     #[derive(
-        Clone, Copy, Debug, Deserialize, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, JsonSchema,
+        Clone, Copy, Debug, Deserialize, Eq, Hash, JsonSchema, Ord, PartialEq, PartialOrd, Serialize,
     )]
     pub enum StringEnum {
         One,
