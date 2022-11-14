@@ -169,7 +169,7 @@ fn value_for_external_enum(
 
         let var_ident = format_ident!("{}", &variant.name);
         let type_ident = format_ident!("{}", type_name);
-        Some(quote! { super::#type_ident::#var_ident })
+        Some(quote! { #type_ident::#var_ident })
     } else {
         let map = value.as_object()?;
         (map.len() == 1).then(|| ())?;
@@ -186,11 +186,11 @@ fn value_for_external_enum(
             VariantDetails::Simple => None,
             VariantDetails::Tuple(types) => {
                 let tup = value_for_tuple(type_space, var_value, types)?;
-                Some(quote! { super::#type_ident::#var_ident ( #( #tup ),* ) })
+                Some(quote! { #type_ident::#var_ident ( #( #tup ),* ) })
             }
             VariantDetails::Struct(props) => {
                 let props = value_for_struct_props(props, var_value, type_space)?;
-                Some(quote! { super::#type_ident::#var_ident { #( #props ),* } })
+                Some(quote! { #type_ident::#var_ident { #( #props ),* } })
             }
         }
     }

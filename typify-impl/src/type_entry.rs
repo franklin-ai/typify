@@ -1239,13 +1239,11 @@ fn strings_to_derives<'a>(
 ) -> impl Iterator<Item = TokenStream> + 'a {
     let mut combined_derives = derive_set.clone();
     combined_derives.extend(extra_derives.iter().map(String::as_str));
-    combined_derives
-        .into_iter()
-        .map(|derive| {
-            syn::parse_str::<syn::Path>(derive)
-                .unwrap()
-                .into_token_stream()
-        })
+    combined_derives.into_iter().map(|derive| {
+        syn::parse_str::<syn::Path>(derive)
+            .unwrap()
+            .into_token_stream()
+    })
 }
 
 fn all_variants_support_from_string(

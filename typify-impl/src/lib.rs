@@ -349,7 +349,7 @@ impl TypeSpace {
     ///   1) A type refering to itself: A -> A
     ///   2) A type optionally referring to itself: A -> Option<A>
     ///   3) An enum variant referring to itself, either optionally or directly
-    ///   
+    ///
     /// TODO currently only trivial cycles are broken. A more generic solution
     /// may be required, but it may also a point to ask oneself why such a
     /// complicated type is required :) A generic solution is difficult because
