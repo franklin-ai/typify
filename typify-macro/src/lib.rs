@@ -123,7 +123,7 @@ fn do_import_types(item: TokenStream) -> Result<TokenStream, syn::Error> {
             .map_err(|e| into_syn_err(e, schema.span()))?;
     }
 
-    let types = type_space.to_stream();
+    let types = type_space.to_stream(false);
     let path_str = path.to_string_lossy();
     let output = quote! {
         #types
