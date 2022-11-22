@@ -67,7 +67,7 @@ fn validate_output_impl<T: JsonSchema + Schema>(ignore_variant_names: bool) {
     let type_entry = type_space.id_to_entry.get(&type_id).unwrap();
 
     let mut output = OutputSpace::default();
-    type_entry.output(&type_space, &mut output);
+    type_entry.output(&type_space, &mut output, false);
     let output = output.into_stream();
 
     let expected = T::schema();

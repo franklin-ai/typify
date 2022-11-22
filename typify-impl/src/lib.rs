@@ -601,13 +601,13 @@ impl TypeSpace {
         }
     }
     /// All code for processed types.
-    pub fn to_stream(&self) -> TokenStream {
+    pub fn to_stream(&self, use_ros_models: bool) -> TokenStream {
         let mut output = OutputSpace::default();
 
         // Add all types.
         self.id_to_entry
             .values()
-            .for_each(|type_entry| type_entry.output(self, &mut output));
+            .for_each(|type_entry| type_entry.output(self, &mut output, use_ros_models));
 
         // Add all shared default functions.
         self.defaults
@@ -693,7 +693,7 @@ impl TypeSpace {
 
 impl ToString for TypeSpace {
     fn to_string(&self) -> String {
-        rustfmt(self.to_stream().to_string()).unwrap()
+        rustfmt(self.to_stream(false).to_string()).unwrap()
     }
 }
 
@@ -881,13 +881,13 @@ mod tests {
         println!("{:#?}", ty);
 
         let mut output = OutputSpace::default();
-        ty.output(&type_space, &mut output);
+        ty.output(&type_space, &mut output, false);
         println!("{}", output.into_stream());
 
         for ty in type_space.id_to_entry.values() {
             println!("{:#?}", ty);
             let mut output = OutputSpace::default();
-            ty.output(&type_space, &mut output);
+            ty.output(&type_space, &mut output, false);
             println!("{}", output.into_stream());
         }
     }
@@ -931,7 +931,7 @@ mod tests {
             }
             _ => {
                 let mut output = OutputSpace::default();
-                ty.output(&type_space, &mut output);
+                ty.output(&type_space, &mut output, false);
                 println!("{}", output.into_stream());
                 panic!();
             }

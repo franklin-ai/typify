@@ -91,7 +91,7 @@ fn test_generation() {
     let _ = type_space.add_type(&pair_schema).unwrap();
     let _ = type_space.add_type(&all_the_traits).unwrap();
 
-    let types = type_space.to_stream();
+    let types = type_space.to_stream(false);
 
     let file = quote! {
         mod types {
