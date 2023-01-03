@@ -1486,7 +1486,7 @@ mod tests {
         let type_entry = type_space.id_to_entry.get(&type_id).unwrap();
 
         let mut output = OutputSpace::default();
-        type_entry.output(&type_space, &mut output);
+        type_entry.output(&type_space, &mut output, false);
         let actual = output.into_stream();
         let expected = quote! {
             #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -1550,7 +1550,7 @@ mod tests {
         let type_entry = type_space.id_to_entry.get(&type_id).unwrap();
 
         let mut output = OutputSpace::default();
-        type_entry.output(&type_space, &mut output);
+        type_entry.output(&type_space, &mut output, false);
         let actual = output.into_stream();
         let expected = quote! {
             #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -1610,7 +1610,7 @@ mod tests {
         }
 
         let (type_space, _) = get_type::<PatternString>();
-        let actual = type_space.to_stream();
+        let actual = type_space.to_stream(false);
         let expected = quote! {
             #[derive(Clone, Debug, Serialize)]
             pub struct PatternString(String);
@@ -1673,7 +1673,7 @@ mod tests {
         let mut type_space = TypeSpace::default();
         let _ = type_space.add_type(&schema.schema.into()).unwrap();
 
-        let actual = type_space.to_stream();
+        let actual = type_space.to_stream(false);
         let expected = quote! {};
         assert_eq!(actual.to_string(), expected.to_string());
     }

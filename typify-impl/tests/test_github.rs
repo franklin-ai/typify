@@ -20,7 +20,7 @@ fn test_github() {
     type_space.add_ref_types(schema.definitions).unwrap();
     type_space.add_type(&Schema::Object(schema.schema)).unwrap();
 
-    let file = type_space.to_stream();
+    let file = type_space.to_stream(false);
 
     let fmt = rustfmt_wrapper::rustfmt(file.to_string()).unwrap();
 

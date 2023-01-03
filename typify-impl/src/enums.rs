@@ -1635,7 +1635,7 @@ mod tests {
             .maybe_externally_tagged_enum(Name::Required("ResultX".to_string()), &None, &subschemas)
             .unwrap();
         let mut output = OutputSpace::default();
-        type_entry.output(&type_space, &mut output);
+        type_entry.output(&type_space, &mut output, false);
         let actual = output.into_stream();
         let expected = quote! {
             #[derive(Clone, Debug, Deserialize, Serialize)]
@@ -1662,7 +1662,7 @@ mod tests {
             .maybe_externally_tagged_enum(Name::Required("ResultX".to_string()), &None, &subschemas)
             .unwrap();
         let mut output = OutputSpace::default();
-        type_entry.output(&type_space, &mut output);
+        type_entry.output(&type_space, &mut output, false);
         let actual = output.into_stream();
         let expected = quote! {
             #[derive(A, B, C, Clone, D, Debug, Deserialize, Serialize)]
@@ -1711,7 +1711,7 @@ mod tests {
         let mut type_space = TypeSpace::default();
         type_space.add_type(&schema.schema.into()).unwrap();
 
-        let actual = type_space.to_stream();
+        let actual = type_space.to_stream(false);
         let expected = quote! {
             #[derive(Clone, Debug, Deserialize, Serialize)]
             #[serde(untagged)]
