@@ -799,13 +799,16 @@ impl TypeEntry {
                 }
             });
         });
+        let mut global_extra_derives = type_space.settings.extra_derives.clone();
+        if name.eq("AnalysisResultRequest")
+            || name.eq("AnalysisResultRequestData")
+            || name.eq("ApplicationRegistrationInfo")
+        {
+            global_extra_derives.retain(|x| x.ne("Dummy"));
+        }
 
-        let derives = strings_to_derives(
-            derive_set,
-            &self.derives,
-            &type_space.settings.extra_derives,
-        )
-        .collect::<Vec<_>>();
+        let derives = strings_to_derives(derive_set, &self.derives, &global_extra_derives)
+            .collect::<Vec<_>>();
 
         output.add_item(
             OutputSpaceMod::Crate,
