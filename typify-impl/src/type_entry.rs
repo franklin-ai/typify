@@ -448,7 +448,12 @@ impl TypeEntry {
         }
     }
 
-    pub(crate) fn output(&self, type_space: &TypeSpace, output: &mut OutputSpace, use_ros_models: bool) {
+    pub(crate) fn output(
+        &self,
+        type_space: &TypeSpace,
+        output: &mut OutputSpace,
+        use_ros_models: bool,
+    ) {
         let name = self.name();
         if use_ros_models && name.is_some() {
             let type_name = format_ident!("{}", name.unwrap());
