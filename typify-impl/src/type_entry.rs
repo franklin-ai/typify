@@ -803,8 +803,13 @@ impl TypeEntry {
         if name.eq("AnalysisResultRequest")
             || name.eq("AnalysisResultRequestData")
             || name.eq("ApplicationRegistrationInfo")
+            || name.eq("AnalysisResultResponse")
         {
             global_extra_derives.retain(|x| x.ne("Dummy"));
+        }
+
+        if name.eq("SlideInfoResponse") || name.eq("SlideStoredTileFormat") {
+            global_extra_derives.retain(|x| x.ne("ToSchema"));
         }
 
         let derives = strings_to_derives(derive_set, &self.derives, &global_extra_derives)
