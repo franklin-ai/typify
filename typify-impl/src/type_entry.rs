@@ -806,7 +806,9 @@ impl TypeEntry {
             || name.eq("AnalysisResultResponse")
         {
             global_extra_derives.retain(|x| x.ne("Dummy"));
-        } else if name.eq("SlideInfoResponse") || name.eq("SlideStoredTileFormat") {
+        } else if name.eq("SlideInfoResponse(pub SlideInfoBasic)")
+            || name.eq("SlideStoredTileFormat(pub TileFormat)")
+        {
             global_extra_derives.retain(|x| x.ne("ToSchema"));
         };
 
