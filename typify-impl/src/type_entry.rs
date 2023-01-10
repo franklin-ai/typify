@@ -804,6 +804,8 @@ impl TypeEntry {
             || name.eq("AnalysisResultRequestData")
             || name.eq("ApplicationRegistrationInfo")
             || name.eq("AnalysisResultResponse")
+            || name.eq("BaseAction")
+            || name.eq("Action")
         {
             global_extra_derives.retain(|x| x.ne("Dummy"));
         }
