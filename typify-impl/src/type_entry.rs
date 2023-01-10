@@ -806,11 +806,7 @@ impl TypeEntry {
             || name.eq("AnalysisResultResponse")
         {
             global_extra_derives.retain(|x| x.ne("Dummy"));
-        } else if name.eq("SlideInfoResponse(pub SlideInfoBasic)")
-            || name.eq("SlideStoredTileFormat(pub TileFormat)")
-        {
-            global_extra_derives.retain(|x| x.ne("ToSchema"));
-        };
+        }
 
         let derives = strings_to_derives(derive_set, &self.derives, &global_extra_derives)
             .collect::<Vec<_>>();
