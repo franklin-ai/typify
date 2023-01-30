@@ -130,7 +130,7 @@ impl TypeEntry {
                 // unfortunate, but unavoidable without getting in the
                 // underpants of the serialized form of these built-in types.
                 quote! {
-                    serde_json::from_string::< #( #type_path )::* >(#text).unwrap()
+                    serde_json::from_str::< #( #type_path )::* >(#text).unwrap()
                 }
             }
             TypeEntryDetails::Boolean => {
@@ -188,7 +188,7 @@ fn value_for_external_enum(
             VariantDetails::Simple => None,
             VariantDetails::Item(type_id) => {
                 let item = value_for_item(type_space, var_value, type_id, scope);
-                Some(quote! { #scope #type_ident::#var_ident ( #item ) })
+                Some(quote! { #scope #type_ident::#var_ident ( #item ::default() ) })
             }
             VariantDetails::Tuple(types) => {
                 let tup = value_for_tuple(type_space, var_value, types, scope)?;
@@ -518,7 +518,7 @@ mod tests {
                 .map(|x| x.to_string()),
             Some(
                 quote! {
-                    serde_json::from_string::<uuid::Uuid>("\"not-a-uuid\"").unwrap()
+                    serde_json::from_str::<uuid::Uuid>("\"not-a-uuid\"").unwrap()
                 }
                 .to_string()
             ),
