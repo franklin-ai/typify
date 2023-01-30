@@ -1675,7 +1675,7 @@ mod tests {
         let mut type_space = TypeSpace::default();
         let _ = type_space.add_type(&schema.schema.into()).unwrap();
 
-        let actual = type_space.to_stream();
+        let actual = type_space.to_stream(false);
         let expected = quote! {};
         assert_eq!(actual.to_string(), expected.to_string());
     }

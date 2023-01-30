@@ -480,7 +480,21 @@ impl TypeEntry {
         }
     }
 
-    pub(crate) fn output(&self, type_space: &TypeSpace, output: &mut OutputSpace) {
+    pub(crate) fn output(&self, type_space: &TypeSpace, output: &mut OutputSpace, use_ros_models: bool) {
+        let name = self.name();
+        if use_ros_models && name.is_some() {
+            let type_name = format_ident!("{}", name.unwrap());
+            output.add_item(
+                OutputSpaceMod::Crate,
+                type_name.clone(),
+                quote! {
+                    #[allow(unused_imports)]
+                    pub use ros_models::types::#type_name;
+                },
+            );
+            return;
+        }
+
         let derive_set = ["Serialize", "Deserialize", "Debug", "Clone"]
             .into_iter()
             .collect::<BTreeSet<_>>();
